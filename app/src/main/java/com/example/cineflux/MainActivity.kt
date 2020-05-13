@@ -1,5 +1,6 @@
 package com.example.cineflux
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,7 +12,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnItemClickLister {
+
+    private lateinit var movies:List<Result>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,11 +26,12 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<PopularMovies>{
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
                 if (response.isSuccessful){
+                    movies = response.body()!!.results
                     progress_bar.visibility = View.GONE
                     recyclerView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = MoviesAdapter(response.body()!!.results)
+                        adapter = MoviesAdapter(response.body()!!.results, this@MainActivity)
                     }
                 }
             }
@@ -35,5 +39,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+
+    }
+
+    override fun onItemClick(movie: Result) {
+        var intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra("movie", movie)
+        startActivity(intent)
     }
 }
