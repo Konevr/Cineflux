@@ -9,7 +9,8 @@ data class PopularMovies(
 
 @Parcelize
 data class Result(
-    val id: Int,    val overview: String,
+    val id: Int,
+    val overview: String,
     val poster_path: String,
     val release_date: String,
     val title: String,

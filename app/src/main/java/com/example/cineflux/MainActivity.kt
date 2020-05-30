@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), OnItemClickLister {
     }
 
     override fun onItemClick(movie: Result) {
-        var intent = Intent(this, MovieDetailsActivity::class.java)
+        val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra("movie", movie)
         startActivity(intent)
     }

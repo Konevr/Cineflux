@@ -10,7 +10,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
-        var movie: Result? = intent.getParcelableExtra("movie")
+        val movie: Result? = intent.getParcelableExtra("movie")
         textView.text = movie?.title
     }
 }

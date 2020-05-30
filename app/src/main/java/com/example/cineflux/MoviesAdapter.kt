@@ -19,7 +19,7 @@ class MoviesAdapter(private val movies: List<Result>, var itemClickLister: OnIte
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        var movie: Result = movies[position]
+        val movie: Result = movies[position]
         holder.bind(movie, itemClickLister)
     }
 }
